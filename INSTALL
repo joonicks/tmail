@@ -1,0 +1,11 @@
+Compile
+
+create /home/tmail directory
+
+create /home/tmail/maildomains file
+create /home/tmail/mailaddrlist file
+
+run
+
+create rc.d entry
+
