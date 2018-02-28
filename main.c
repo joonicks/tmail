@@ -89,7 +89,7 @@ mailcon *mdb;
 /*
  *  some default code for socket flags
  */
-void SockFlags(int fd)
+static inline void SockFlags(int fd)
 {
 	fcntl(fd,F_SETFL,O_NONBLOCK | fcntl(fd,F_GETFL));
 	fcntl(fd,F_SETFD,FD_CLOEXEC | fcntl(fd,F_GETFD));
@@ -682,46 +682,7 @@ flux:
 			logout("{%i} Mail is spam\r\n",cur->socket);
 			cur->spam = 1;
 		}
-/*
-{2} Subject: hi
-{2} X-PHP-Originating-Script: 301:class-phpmailer.php
-{2} Date: Wed, 17 Jan 2018 22:21:51 +0700
-{2} From: Alena <Alena705@static.vnpt.vn>
-{2} Message-ID: <19f0bda7170b4ae88c6646f711267d60@static.vnpt.vn>
-{2} X-Mailer: PHPMailer 5.2.22 (https://github.com/PHPMailer/PHPMailer)
-{2} MIME-Version: 1.0
-{2} Content-Type: text/html; charset=UTF-8
-{2} Content-Transfer-Encoding: 8bit
-{2}
-{2} You seem like my type and I would like to know you more!
-{2} Write me if you are interested, here is my email emmaanjata@rambler.ru and, if you want, I will send some of
-{2}
-{2} Hugs,
-{2} Alena
-{2} To: god@joonicks.eu
-{2} Subject: hey
-{2} X-PHP-Originating-Script: 911:class-phpmailer.php
-{2} Date: Sun, 28 Jan 2018 22:17:45 +0300
-{2} From: marina <marina01045@saudi.net.sa>
-{2} Message-ID: <710142447a0602d4b16e0997489220ef@saudi.net.sa>
-{2} X-Mailer: PHPMailer 5.2.22 (https://github.com/PHPMailer/PHPMailer)
-{2} MIME-Version: 1.0
-{2} Content-Type: text/html; charset=UTF-8
-{2} Content-Transfer-Encoding: 8bit
-{2}
-{2} Hi god, my name is marina and i'm from Russia, but living in the USA.
-{2} A week ago, maybe more, I came across your profile on Facebook and now I wan to know you more.
-{2} I know it sounds a bit strange, but I believe you had something like this in your life too :-)
-{2} If its mutual, email me, this is my email  nikolbeate0ncj@rambler.ru and I will send some of my photos also answer any of your questions.
-{2}
-{2} Waiting for you,
-{2} XXX
-{2} marina
-{2} .
-                uint32_t        my_name_is:1,
-                                from_russia:1,
-                                my_email:1;
- */
+
 #define SUBJECT_HI			575
 #define SUBJECT_HI_PHPMAILER		576
 #define SUBJECT_HI_PHPMAILER_HUGS	577
@@ -970,33 +931,6 @@ mainloop:
 		goto mainloop;
 
 	time(&now);
-
-/*
-	if (lastload+60 <= now)
-	{
-		char	tmp[1000];
-
-		lastload = now;
-
-		if ((fd = open("/proc/loadavg",O_RDONLY)) >= 0)
-		{
-			if ((n = read(fd,&tmp,999)) > 0)	// proc file includes a newline
-			{
-				close(fd);
-				tmp[n] = 0;
-				if ((fd = open("/var/log/load.log",O_RDWR|O_APPEND|O_CREAT,0644)) > 0)
-				{
-					fdout(fd,"%u %s",(unsigned int)lastload,tmp);
-					close(fd);
-				}
-			}
-			else
-			{
-				close(fd);
-			}
-		}
-	}
-*/
 
 	if ((inport != -1) && FD_ISSET(inport,&rds))
 	{

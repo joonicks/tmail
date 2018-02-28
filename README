@@ -1,3 +1,11 @@
+tmail;
+
+Runs chroot in /home/tmail
+
+Will save all messages, even spam.
+
+Is not an open relay.
+
 How to install:
 
-
+Read INSTALL
